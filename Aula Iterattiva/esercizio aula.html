@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Document</title>
+    <style>
+        img {
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="button">stampa</button>
+    <input type="text" id="input" placeholder="inseisci il numero di dispositivi">
+    <button id="button1">cancella</button>
+    <!-- <table style="text-align: center;"></table> -->
+    <div></div>
+
+    <script>
+        const input = document.getElementById("input");
+        let righe = 0, colonne = 0;
+        let div = document.querySelector("div");
+        let button = document.getElementById("button");
+        let button1 = document.getElementById("button1");
+        let divisori = 1;
+
+
+        button.onclick = () => {
+            let count = 0, divisori = input.value - 1;
+            while (divisori > 0) {
+                if (input.value % divisori == 0) count++;
+                divisori--;
+            }
+
+            if (count == 1) {
+                righe = input.value;
+                colonne = 1;
+                let table = document.createElement("table");
+                div.appendChild(table);
+                for (let i = 0; i < righe; i++) {
+                    let rig = document.createElement("tr");
+                    table.appendChild(rig);
+                    for (let j = 0; j < colonne; j++) {
+                        let col = document.createElement("td");
+                        let img = document.createElement("img");
+                        img.src = "pc-bianco.png";
+                        col.appendChild(img);
+                        col.setAttribute("onclick", "smongola(this)");
+                        rig.appendChild(col);
+                        
+                    }
+                }
+            }
+
+            else if (count > 1) {
+                let count = input.value - 1;
+                let divi = 0;
+                while (divi == 0) {
+                    if (input.value % count == 0) divi = count;
+                    // console.log(count);
+                    count--;
+                }
+                righe = input.value / divi;
+                colonne = divi;
+                // console.log(righe);
+                // console.log(colonne);
+                let table = document.createElement("table");    
+                div.appendChild(table);
+                for (let i = 0; i < righe; i++) {
+                    let rig = document.createElement("tr");
+                    table.appendChild(rig);
+                    for (let j = 0; j < colonne; j++) {
+                        let col = document.createElement("td");
+                        var img = document.createElement("img");
+                        img.src = "pc-bianco.png";
+                        col.appendChild(img);
+                        col.setAttribute("onclick", "fun(this)");
+                        rig.appendChild(col);
+                    }
+                }
+            }
+        }
+
+        button1.onclick = () => {
+            div.innerHTML = "";
+        }
+
+        fun = (td) => {
+            let dep = td.children;
+            let img = dep[0];
+            if(img.src.includes("pc-rosso.png")) img.src = "pc-bianco.png";
+            else img.src = "pc-rosso.png";
+        }
+
+    </script>
+
+</body>
+
+</html>
